@@ -1,0 +1,180 @@
+<div class="container">
+  <h1>{{title}} <img src="https://avatars.githubusercontent.com/u/38231749?s=280&v=4" alt="" width="80"
+      height="80"></h1>
+  <h4>Administrador de recursos (Docker)</h4>
+
+  <br>
+  <h4>Iniciando um container</h4>
+
+  <form [formGroup]="angForm" (ngSubmit)="runContainer()" novalidate>
+
+    <div class="form-row">
+
+      <div class="col">
+        <label>Nome Image<span style="color:red;">*</span></label>
+        <input class="form-control" [(ngModel)]="containerRequest.image" minlength="1" required
+          formControlName="imageNameTag" type="text">
+        <div
+          *ngIf="angForm.controls['imageNameTag'].invalid && (angForm.controls['imageNameTag'].dirty || angForm.controls['imageNameTag'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="angForm.controls['imageNameTag'].errors">
+            Nome da Image e necessaria.
+          </div>          
+        </div>
+      </div>
+
+      <div class="col">
+        <label>Nome Container</label>
+        <input class="form-control" [(ngModel)]="containerRequest.name" formControlName="containername" type="text">
+      </div>
+
+    </div>
+
+
+    <div class="form-row">
+
+      <div class="col">
+        <label>Porta (externa:interna):</label>
+        <input class="form-control" [(ngModel)]="containerRequest.port" formControlName="containerPort"  type="text">
+        <div
+          *ngIf="angForm.controls['containerPort'].invalid && (angForm.controls['containerPort'].dirty || angForm.controls['containerPort'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="angForm.controls['containerPort'].errors">
+            Caso tenha, deve ser formatado como 8080:80 por exemplo. Sendo "externo:interno"
+          </div>     
+        </div>
+      </div>
+
+
+      <div class="col">
+        <label>Ambiente:</label>
+        <input class="form-control" [(ngModel)]="containerRequest.env_full" formControlName="containerEnvFull" type="text">
+        <div
+          *ngIf="angForm.controls['containerEnvFull'].invalid && (angForm.controls['containerEnvFull'].dirty || angForm.controls['containerEnvFull'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="angForm.controls['containerEnvFull'].errors">
+            Caso tenha, deve ser formatada como: ENV_NAME=ENV_VALUE or NV_NAME1=ENV_VALUE1,NV_NAME2=ENV_VALUE2, ...
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <br>
+    <button type="submit" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-success">
+      Enviar
+    </button>
+  </form>
+
+  <br />
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Containers Iniciados</li>
+      <li class="breadcrumb-item active" aria-current="page" (click)="deleteAllContainers()">Deletar todos os Containers</li>
+    </ol>
+  </nav>
+  <div class="container">
+    <div class="card list-transfer">
+      <h5 class="card-header">Lista de Containers</h5>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Image</th>
+              <th scope="col">StartedAt</th>
+              <th scope="col">Status</th>
+              <th scope="col">Port</th>
+              <th scope="col">CreatedAt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [hidden]="ct.name" *ngFor="let ct of containers">
+              <td>{{ct.shortId}}</td>
+              <td>{{ct.name.substring(0, 15)}}</td>
+              <td>{{ct.image.substring(0, 15)}}</td>
+              <td>{{ct.state.status[0]}}</td>
+              <td>{{ct.ports}}</td>
+              <!-- <td><a href="{{ extractLink(ct) }}" target="_blank">{{extractPort(ct)}}</a></td> -->
+              <td>{{ct.createdAt}}</td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteContainerById(ct.shortId)">Delete</button>
+              </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <h4>Enviando uma image</h4>
+
+  <form [formGroup]="imageForm" (ngSubmit)="pullImage()" novalidate>
+
+    <div class="form-row">
+
+      <div class="col">
+        <label>Name <span style="color:red;">*</span></label>
+        <input class="form-control" [(ngModel)]="imageRequest.name" minlength="1" required formControlName="imageName" type="text">
+        <div
+          *ngIf="imageForm.controls['imageName'].invalid && (imageForm.controls['imageName'].dirty || imageForm.controls['imageName'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="imageForm.controls['imageName'].errors">
+            Nome da imagem e necessario
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <label>Tag Image:</label>
+        <input class="form-control" [(ngModel)]="imageRequest.tag" formControlName="imageTag"
+          type="text">        
+      </div>
+
+    </div>
+    <br>
+    <button type="submit" [disabled]="imageForm.pristine || imageForm.invalid" class="btn btn-success">
+      Enviar
+    </button>
+  </form>
+
+  <br />
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Images Enviadas</li>
+      <li class="breadcrumb-item active" aria-current="page" (click)="deleteAllImages()">Deletar todas as Images</li>
+    </ol>
+  </nav>
+  <div class="container">
+    <div class="card list-transfer">
+      <h5 class="card-header">Lista de Images</h5>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Tag</th>
+              <th scope="col">CreatedAt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let im of images">
+              <td>{{im.shortId}}</td>
+              <td>{{im.name}}</td>
+              <td>{{im.tag}}</td>
+              <td>{{im.createdAt}}</td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteImageById(im.shortId)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
