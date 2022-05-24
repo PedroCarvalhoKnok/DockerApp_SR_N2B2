@@ -14,7 +14,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-srFront';
+  title = 'Resources Manager';
   angForm!: FormGroup;
   imageForm!: FormGroup;
   _isDisabled = false;

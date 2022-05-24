@@ -1,19 +1,22 @@
-<div class="container">
-  <h1>{{title}} <img src="https://avatars.githubusercontent.com/u/38231749?s=280&v=4" alt="" width="80"
-      height="80"></h1>
-  <h4>Administrador de recursos (Docker)</h4>
+<div class="container background roundcorner">
+  <h1 id="centertext">{{title}}</h1>
+  <h4 id="centertext">Administrador de recursos (Docker)</h4>
+  <div id="centertext">
+  <img class="roundcorner" id="centertext" src="https://www.docker.com/wp-content/uploads/2021/09/Docker-build-480x356.png" alt="" width="80"
+      height="300" [width]="300">
+  </div>
 
   <br>
-  <h4>Iniciando um container</h4>
+  <h4 id="centertext">Iniciando um container</h4>
 
   <form [formGroup]="angForm" (ngSubmit)="runContainer()" novalidate>
 
     <div class="form-row">
 
-      <div class="col">
+      <div class="col" id="centertext">
         <label>Nome Image<span style="color:red;">*</span></label>
         <input class="form-control" [(ngModel)]="containerRequest.image" minlength="1" required
-          formControlName="imageNameTag" type="text">
+          formControlName="imageNameTag" type="text" placeholder="Insira o nome da Image">
         <div
           *ngIf="angForm.controls['imageNameTag'].invalid && (angForm.controls['imageNameTag'].dirty || angForm.controls['imageNameTag'].touched)"
           class="alert alert-danger">
@@ -23,9 +26,9 @@
         </div>
       </div>
 
-      <div class="col">
+      <div class="col" id="centertext">
         <label>Nome Container</label>
-        <input class="form-control" [(ngModel)]="containerRequest.name" formControlName="containername" type="text">
+        <input class="form-control" [(ngModel)]="containerRequest.name" formControlName="containername" type="text" placeholder="Insira o nome do Container">
       </div>
 
     </div>
@@ -33,9 +36,9 @@
 
     <div class="form-row">
 
-      <div class="col">
-        <label>Porta (externa:interna):</label>
-        <input class="form-control" [(ngModel)]="containerRequest.port" formControlName="containerPort"  type="text">
+      <div class="col" id="centertext">
+        <label>Porta (externa:interna)</label>
+        <input class="form-control" [(ngModel)]="containerRequest.port" formControlName="containerPort"  type="text" placeholder="Exemplo 8080:80">
         <div
           *ngIf="angForm.controls['containerPort'].invalid && (angForm.controls['containerPort'].dirty || angForm.controls['containerPort'].touched)"
           class="alert alert-danger">
@@ -46,9 +49,9 @@
       </div>
 
 
-      <div class="col">
-        <label>Ambiente:</label>
-        <input class="form-control" [(ngModel)]="containerRequest.env_full" formControlName="containerEnvFull" type="text">
+      <div class="col" id="centertext">
+        <label>Ambiente</label>
+        <input class="form-control" [(ngModel)]="containerRequest.env_full" formControlName="containerEnvFull" type="text" placeholder="Insira o ambiente">
         <div
           *ngIf="angForm.controls['containerEnvFull'].invalid && (angForm.controls['containerEnvFull'].dirty || angForm.controls['containerEnvFull'].touched)"
           class="alert alert-danger">
@@ -61,33 +64,39 @@
     </div>
 
     <br>
+    <div id="centertext">
     <button type="submit" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-success">
       Enviar
     </button>
+  </div>
   </form>
 
   <br />
 
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Containers Iniciados</li>
-      <li class="breadcrumb-item active" aria-current="page" (click)="deleteAllContainers()">Deletar todos os Containers</li>
-    </ol>
+      <ol class="breadcrumb alignli">
+        <li class="breadcrumb-item active" aria-current="page">Containers Iniciados</li>
+      </ol>
   </nav>
+  <div id="centertext">
+  <button type="button" (click)="deleteAllContainers()" class="btn btn-danger">
+    Deletar todos os Containers
+  </button>
+  </div>
   <div class="container">
     <div class="card list-transfer">
-      <h5 class="card-header">Lista de Containers</h5>
+      <h5 id="centertext" class="card-header">Lista de Containers</h5>
       <div class="card-body">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">Image</th>
-              <th scope="col">StartedAt</th>
-              <th scope="col">Status</th>
-              <th scope="col">Port</th>
-              <th scope="col">CreatedAt</th>
+              <th scope="col">ID</th>
+              <th scope="col">NOME</th>
+              <th scope="col">IMAGE</th>
+              <th scope="col">INICIO</th>
+              <th scope="col">STATUS</th>
+              <th scope="col">PORTA</th>
+              <th scope="col">CRIACAO</th>
             </tr>
           </thead>
           <tbody>
@@ -111,13 +120,13 @@
 
   <br>
 
-  <h4>Enviando uma image</h4>
+  <h4 id="centertext">Enviando uma image</h4>
 
   <form [formGroup]="imageForm" (ngSubmit)="pullImage()" novalidate>
 
     <div class="form-row">
 
-      <div class="col">
+      <div class="col" id="centertext">
         <label>Name <span style="color:red;">*</span></label>
         <input class="form-control" [(ngModel)]="imageRequest.name" minlength="1" required formControlName="imageName" type="text">
         <div
@@ -129,7 +138,7 @@
         </div>
       </div>
 
-      <div class="col">
+      <div class="col" id="centertext">
         <label>Tag Image:</label>
         <input class="form-control" [(ngModel)]="imageRequest.tag" formControlName="imageTag"
           type="text">        
@@ -137,30 +146,36 @@
 
     </div>
     <br>
+    <div id="centertext">
     <button type="submit" [disabled]="imageForm.pristine || imageForm.invalid" class="btn btn-success">
       Enviar
     </button>
+    </div>
   </form>
 
   <br />
 
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Images Enviadas</li>
-      <li class="breadcrumb-item active" aria-current="page" (click)="deleteAllImages()">Deletar todas as Images</li>
+    <ol class="breadcrumb alignli">
+        <li class="breadcrumb-item active" aria-current="page">Images Enviadas</li>
     </ol>
   </nav>
+  <div id="centertext">
+    <button type="button" (click)="deleteAllImages()" class="btn btn-danger">
+      Deletar todas as images
+    </button>
+  </div>
   <div class="container">
     <div class="card list-transfer">
-      <h5 class="card-header">Lista de Images</h5>
+      <h5 id="centertext" class="card-header">Lista de Images</h5>
       <div class="card-body">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">Tag</th>
-              <th scope="col">CreatedAt</th>
+              <th scope="col">ID</th>
+              <th scope="col">NOME</th>
+              <th scope="col">TAG</th>
+              <th scope="col">CRIACAO</th>
             </tr>
           </thead>
           <tbody>

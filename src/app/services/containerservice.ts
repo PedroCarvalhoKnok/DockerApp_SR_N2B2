@@ -64,8 +64,6 @@ export class ContainersService {
   }
 
 
-
-
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
