@@ -1,4 +1,4 @@
-# ***APLICAÇÃO---PLATAFORMA DE EMPREGOS***
+# ***APLICAÇÃO--- Orquestrador e Administrador de recursos Docker***
 Repositorio voltado para o desenvolvimento FrontEnd do nosso projeto Sistemas distribuidos em EC9 com Angular Framework, TS
 
 
