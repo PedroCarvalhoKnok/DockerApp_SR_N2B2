@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
  import { ContainersService } from 'src/app/services/containerservice';
 import { ImagesService } from 'src/app/services/imageservice';
@@ -13,7 +13,8 @@ import { environment } from '../environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+
+export class AppComponent implements OnInit {
   title = 'Resources Manager';
   angForm!: FormGroup;
   imageForm!: FormGroup;
@@ -30,6 +31,10 @@ export class AppComponent {
     this.createImageForm();
   }
 
+  async ngOnInit() {
+    this.findAllContainers();
+    this.findAllImages();
+  }
   
 
   createContainerForm() {
@@ -67,8 +72,11 @@ export class AppComponent {
   }
 
   public findAllContainers(): void {
+    
     this.containerService.getAll().subscribe((data: ContainerResponse[])=>{
+      console.log(data)
       this.containers = data;
+      
     })  
   }
 
@@ -114,21 +122,6 @@ export class AppComponent {
       // console.log(this.image);      
     });
   }
-  
-  public runContainer(): void{
-    try
-    {
-    this.containerService.run(this.containerRequest).subscribe(() => {
-      this.findAllContainers();
-      this.findAllImages();
-    });
-    this.angForm.reset()
-    }
-    catch(e)
-    {
-      this.containerService.showMessage('erro')
-    }
-  }
 
   public pullImage(): void {
     this.imageService.pull(this.imageRequest).subscribe(() => {
@@ -141,10 +134,12 @@ export class AppComponent {
     return true
   }
 
-  public create():void{
+  public runContainer(): void{
     this.containerService.run(this.containerRequest).subscribe(() => {
-      this.containerService.showMessage('Container iniciado');
-   })
+        this.containerService.showMessage('Container iniciado');
+        this.findAllContainers();
+    });
+    this.angForm.reset()
   }
 
   createImg():void{

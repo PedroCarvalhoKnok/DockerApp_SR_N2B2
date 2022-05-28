@@ -38,6 +38,7 @@ export class ContainersService {
         catchError(this.handleError))
   }
 
+
   // get a Container by id
   getById(containerId: string): Observable<ContainerResponse> {
     return this.httpClient.get<ContainerResponse>(this.REST_API_SERVER + '/' + containerId)
@@ -49,7 +50,7 @@ export class ContainersService {
 
   // run a container
   run(containerReq: ContainerRequest): Observable<ContainerRequest> {
-    return this.httpClient.post<ContainerRequest>(this.REST_API_SERVER, JSON.stringify(containerReq), this.httpOptions)
+    return this.httpClient.post<ContainerRequest>(this.REST_API_SERVER + `?name=${containerReq.name}` + `&image=${containerReq.image}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -58,7 +59,7 @@ export class ContainersService {
 
   // delete a Container by id
   deleteById(containerId: string) {
-    return this.httpClient.delete(this.REST_API_SERVER + '/' + containerId)
+    return this.httpClient.delete(this.REST_API_SERVER + `?idContainer=${containerId}`)
       .pipe(
         retry(1),
         catchError(this.handleError)

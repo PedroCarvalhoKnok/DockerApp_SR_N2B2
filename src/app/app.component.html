@@ -41,7 +41,7 @@
 
     <br>
     <div id="centertext">
-    <button (click)="create()" [disabled]="angForm.pristine || angForm.invalid"
+    <button type="submit" [disabled]="angForm.pristine || angForm.invalid"
     class="btn btn-success">
       Enviar
     </button>
@@ -67,13 +67,15 @@
         <table class="table">
           <thead>
             <tr>
+              <th scope="col">ID</th>
               <th scope="col">SHORT ID</th>
               <th scope="col">NOME</th>
               <th scope="col">STATUS</th>
             </tr>
           </thead>
           <tbody>
-            <tr [hidden]="ct.name" *ngFor="let ct of containers">
+            <tr *ngFor="let ct of containers">
+              <td>{{ct.id}}</td>
               <td>{{ct.short_id}}</td>
               <td>{{ct.name}}</td>
               <td>{{ct.status}}</td>

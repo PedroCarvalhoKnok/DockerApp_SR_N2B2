@@ -50,7 +50,7 @@ export class ImagesService {
 
   // pull an Image
   pull(imageReq: ImageRequest): Observable<ImageRequest> {
-    return this.httpClient.post<ImageRequest>(this.REST_API_SERVER, JSON.stringify(imageReq), this.httpOptions)
+    return this.httpClient.post<ImageRequest>(this.REST_API_SERVER + `?imageName=${imageReq.imageName}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -59,7 +59,7 @@ export class ImagesService {
 
   // delete an Image by id
   deleteById(imageId: string) {
-    return this.httpClient.delete(this.REST_API_SERVER + '/' + imageId)
+    return this.httpClient.delete(this.REST_API_SERVER + `?idImage=${imageId}`)
       .pipe(
         retry(1),
         catchError(this.handleError)
