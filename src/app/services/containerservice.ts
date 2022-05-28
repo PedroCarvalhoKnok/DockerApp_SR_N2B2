@@ -4,15 +4,26 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ContainerResponse } from "../models/container-resp";
 import { ContainerRequest } from "../models/container-req";
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContainersService {
-  private REST_API_SERVER = "http://localhost:8000/containers";
+  private REST_API_SERVER = "http://127.0.0.1:5000/containers";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) { }
+
+  showMessage(msg: string, isError:boolean =false):void{
+    this.snackBar.open(msg,'X',{
+      duration:3000,
+      horizontalPosition:"right",
+      verticalPosition: "top",
+      panelClass: isError?['msg-error']:['msg-success']
+    })
+  }
 
   // Headers
   httpOptions = {
@@ -76,4 +87,6 @@ export class ContainersService {
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
+
+
 }

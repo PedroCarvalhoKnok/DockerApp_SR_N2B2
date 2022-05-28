@@ -1,6 +1,6 @@
 export interface ImageResponse {
-    shortId: string;
-    tag: string;
-    name: string;
-    createdAt: string;
+    short_id: string;
+    tags: string;
+    id: string;
+    labels: string;
 }

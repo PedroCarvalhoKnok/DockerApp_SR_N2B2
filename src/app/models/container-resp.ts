@@ -1,10 +1,5 @@
-import { State } from "./state";
-
 export interface ContainerResponse{
-    shortId: string;
-    image: string;
+    short_id: string;
     name: string;
-    createdAt: string;
-    state: State;
-    ports: {};
+    status: string;
 }

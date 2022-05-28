@@ -30,6 +30,8 @@ export class AppComponent {
     this.createImageForm();
   }
 
+  
+
   createContainerForm() {
     this.angForm = this.fb.group({
       transferId: [{ value: 0, disabled: this._isDisabled }, [Validators.pattern("^[0-9]*$"), Validators.min(0)]],
@@ -73,24 +75,28 @@ export class AppComponent {
 
   public deleteImageById(imageId: string): void {
     this.imageService.deleteById(imageId).subscribe(() => {
+      this.containerService.showMessage(`Image ${imageId} foi deletada com sucesso`);
       this.findAllImages();
     })
   }
 
   public deleteAllImages(): void{
     this.imageService.deleteAll().subscribe(() => {
+      this.containerService.showMessage('Todas as images foram deletadas');
       this.findAllImages();
     })
   }
   
   public deleteContainerById(imageId: string): void {
     this.containerService.deleteById(imageId).subscribe(() => {
+      this.containerService.showMessage(`O container ${imageId} foi deletado com sucesso`);
       this.findAllContainers();
     })
   }
 
   public deleteAllContainers(): void{
     this.containerService.deleteAll().subscribe(() => {
+      this.containerService.showMessage('Todos os containers foram deletado');
       this.findAllContainers();
     })
   }
@@ -110,11 +116,18 @@ export class AppComponent {
   }
   
   public runContainer(): void{
+    try
+    {
     this.containerService.run(this.containerRequest).subscribe(() => {
       this.findAllContainers();
       this.findAllImages();
     });
     this.angForm.reset()
+    }
+    catch(e)
+    {
+      this.containerService.showMessage('erro')
+    }
   }
 
   public pullImage(): void {
@@ -126,6 +139,18 @@ export class AppComponent {
 
   public enableButton(): boolean{
     return true
+  }
+
+  public create():void{
+    this.containerService.run(this.containerRequest).subscribe(() => {
+      this.containerService.showMessage('Container iniciado');
+   })
+  }
+
+  createImg():void{
+    this.imageService.pull(this.imageRequest).subscribe(() => {
+     this.imageService.showMessage('Imagem enviada');
+    })
   }
 
   // //UTILS
