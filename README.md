@@ -1,27 +1,39 @@
-# AngularSrFront
+# ***APLICAÇÃO---PLATAFORMA DE EMPREGOS***
+Repositorio voltado para o desenvolvimento FrontEnd do nosso projeto Sistemas distribuidos em EC9 com Angular Framework, TS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
 
-## Development server
+***Descrição Geral***
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+A atividade proposta trata-se de uma aplicação com front end (client) desenvolvido em ***Angular 12***
+que torna possivel realizar requisições de ***Criação, listagem, exclusão e Inicialização de containers e images*** para o Docker Hub.
 
-## Code scaffolding
+OBS: O client funciona juntamente com a api rodando localmente e com persistência de dados em tempo de execução
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+***Clonagem***
+Utilize o git clone através do https ou ssh
+execute o comando:
+***git clone https://github.com/PedroCarvalhoKnok/DockerApp_SR_N2B2.git***
 
-## Build
+***Instalação e execução***
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Inicialmente é necessario possuir a IDE visual studio code caso não possua instale  ***[aqui](https://code.visualstudio.com/download)***
 
-## Running unit tests
+2. Para rodar a aplicação na sua máquina(browser) é necessario ter o ***Angular Cli** instalado.
+Para realizar a instalação do Angular Cli pelo terminal do visual studio code caso não possua execute:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+***npm install -g @angular/cli***
 
-## Running end-to-end tests
+3. Após ter instalado ou caso já possua execute no terminal o comando para instalação das dependencias do node:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+***npm install***
 
-## Further help
+4. Para rodar a aplicação execute o comando:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+***ng serve***
+
+***Integrantes***
+Felipe Soares - 081180008
+Lucas Caffer - 081180024
+Milena Barbosa - 081180026
+Pedro Knok - 081180028
+
